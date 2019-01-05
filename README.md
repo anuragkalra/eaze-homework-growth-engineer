@@ -4,6 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm install`
+
+Installs all relevant dependencies necessary to run application
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
@@ -12,57 +16,24 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+## Dependencies
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+react-ab-test
 
-### `npm run build`
+## Reflection
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Description
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Web app that displays the trending GIFs on Giphy. Responsively designed to work on mobile, tablet, and desktop. Users can also search for gifs and see results. On hovering, the user can see more information about the gif.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Features
 
-### `npm run eject`
+This app includes dependency-free infinite scrolling. A/B testing is implemented with the support of the react-ab-test library. First, there is an A/B experiment that is part of the SearchContainer component. This component varies the color of the submit button, and emits a win on the basis of the clicking of the button. Second, there is an A/B experiment as part of the TrendingInfiniteColumn component. We run one variant where the username is visible, and one without. Wins are emitted on the basis of clicking the outbound link for the particular gif on Giphy.com.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Challenges and Hurdles
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In the process of completing the Eaze Growth Engineer Homework, I encountered various challenges, and I tried my best to solve them in the most effective way possible. Though I had some experience using React prior to this project, the Eaze Growth Engineer Homework web app was the most complex react app I have coded till today. One of the primary challenges in this app was dealing with the information that was communicated via the Giphy API. This was the first time I used the Giphy API, so I had to solve many of my problems through trial-and-error. Additionally, I chose to design the app so that the trending results would populate the window by default, and the search results would populate the window as soon as the user began typing. This led to some complications in debugging when managing the state of the app. Another complexity that was a part of the project was creating a responsive app. Because the app receives a set of gif objects of various sizes, this provided some challenge in terms of how to effectively render them to the screen, and still provide a responsive experience. To deal with this, I used the 'fixed_height' version of the gif that the Giphy API provides. Additionally, I used media-queries to adjust the width of the images and column-count styling for the ```<ul>``` element that was core to the TrendingInfiniteColumn component. The most difficult part of this assignment was implementing the A/B testing. Though I had some prior knowledge about the methodology behind A/B testing, this was the first time I had implemented it within my own project. To overcome this, I completed research online to understand better how to write effective A/B tests. To aid in my implementation of A/B testing, I used the react-ab-test library. From my experience, there were many commercial options available for A/B testing web apps, and this seemed to be the best and most effectively documented open-source option. In addition to integrating a simple A/B test, one of the challenges was integrating two A/B tests on separate components, as specified in the assignment description. The documentation for react-ab-test was quite good, however slightly confusing in terms of how to implement tests on multiple components. Though I did integrate A/B tests on two components, this process was relatively complicated, and I spent a significant amount of time debugging related issues.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Optimizations and Improvements
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Given the opportunity to improve this web app, there are several features/optimizations that I could add. Firstly, I would migrate the styling to a Sass-based workflow. This would allow more efficient styling, improved reuse of code, and fewer bugs overall. Secondly, I would seek to improve the implementation of the infinite scrolling feature. The TrendingInfiniteColumn component relied on a ```<ul>``` element, populated with ```<li>``` elements that were the result of the Trending API request. To provide responsive sizing, I modified column-count and width style attributes, depending on the result of the media-query. Though this did work, one of the side-effects of this implementation was that images would be populated in the columns left-to-right. While this was not so noticeable on mobile, this created a column that was momentarily empty until populated by the results of the API request. Additionally, another improvement I could have added would have been to migrate the API information (keys, endpoints, parameters) to a json file, external to the React components that relied on them. With the help of utility functions, I could have created methods such as buildUrl(), which would take parameters such as trending/search, api_key, limit, offset, rating, etc. This would reduce the unnecessary code that was required for building the parameter passed to the fetch() method. 
